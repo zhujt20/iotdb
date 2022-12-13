@@ -30,9 +30,9 @@ print(long_description)
 setuptools.setup(
     name="apache-iotdb-udf",
     version="1.0.0",
-    author=" Apache Software Foundation",
+    author="Apache Software Foundation",
     author_email="dev@iotdb.apache.org",
-    description="Apache IoTDB client API",
+    description="Apache IoTDB UDF API",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/apache/iotdb",
