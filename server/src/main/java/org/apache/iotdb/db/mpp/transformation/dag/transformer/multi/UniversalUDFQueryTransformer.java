@@ -22,7 +22,7 @@ package org.apache.iotdb.db.mpp.transformation.dag.transformer.multi;
 import org.apache.iotdb.db.exception.query.QueryProcessException;
 import org.apache.iotdb.db.mpp.transformation.api.LayerPointReader;
 import org.apache.iotdb.db.mpp.transformation.api.YieldableState;
-import org.apache.iotdb.db.mpp.transformation.dag.udf.UDTFExecutor;
+import org.apache.iotdb.db.mpp.transformation.dag.udf.base.UDTFExecutor;
 import org.apache.iotdb.tsfile.exception.write.UnSupportedDataTypeException;
 
 import java.io.IOException;

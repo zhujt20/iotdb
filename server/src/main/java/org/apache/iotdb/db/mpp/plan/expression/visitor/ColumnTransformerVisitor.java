@@ -61,8 +61,8 @@ import org.apache.iotdb.db.mpp.transformation.dag.column.unary.InColumnTransform
 import org.apache.iotdb.db.mpp.transformation.dag.column.unary.IsNullColumnTransformer;
 import org.apache.iotdb.db.mpp.transformation.dag.column.unary.LogicNotColumnTransformer;
 import org.apache.iotdb.db.mpp.transformation.dag.column.unary.RegularColumnTransformer;
-import org.apache.iotdb.db.mpp.transformation.dag.udf.UDTFContext;
-import org.apache.iotdb.db.mpp.transformation.dag.udf.UDTFExecutor;
+import org.apache.iotdb.db.mpp.transformation.dag.udf.base.UDTFContext;
+import org.apache.iotdb.db.mpp.transformation.dag.udf.base.UDTFExecutor;
 import org.apache.iotdb.db.mpp.transformation.dag.util.TransformUtils;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.iotdb.tsfile.read.common.type.Type;

@@ -38,7 +38,7 @@ import org.apache.iotdb.db.mpp.plan.expression.unary.LogicNotExpression;
 import org.apache.iotdb.db.mpp.plan.expression.unary.NegationExpression;
 import org.apache.iotdb.db.mpp.plan.expression.unary.RegularExpression;
 import org.apache.iotdb.db.mpp.plan.expression.visitor.ExpressionVisitor;
-import org.apache.iotdb.db.mpp.transformation.dag.udf.UDTFInformationInferrer;
+import org.apache.iotdb.db.mpp.transformation.dag.udf.base.UDTFInformationInferrer;
 import org.apache.iotdb.db.utils.TypeInferenceUtils;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 

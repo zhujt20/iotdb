@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.iotdb.db.mpp.transformation.dag.udf;
+package org.apache.iotdb.db.mpp.transformation.dag.udf.base;
 
 import org.apache.iotdb.commons.udf.service.UDFManagementService;
 import org.apache.iotdb.commons.udf.utils.UDFDataTypeTransformer;
@@ -40,7 +40,7 @@ import java.util.Map;
 
 public class UDTFExecutor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UDTFExecutor.class);
+  protected static final Logger LOGGER = LoggerFactory.getLogger(UDTFExecutor.class);
 
   protected final String functionName;
   protected final UDTFConfigurations configurations;

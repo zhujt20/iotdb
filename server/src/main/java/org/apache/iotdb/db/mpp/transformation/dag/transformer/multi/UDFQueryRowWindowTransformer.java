@@ -22,7 +22,7 @@ package org.apache.iotdb.db.mpp.transformation.dag.transformer.multi;
 import org.apache.iotdb.db.exception.query.QueryProcessException;
 import org.apache.iotdb.db.mpp.transformation.api.LayerRowWindowReader;
 import org.apache.iotdb.db.mpp.transformation.api.YieldableState;
-import org.apache.iotdb.db.mpp.transformation.dag.udf.UDTFExecutor;
+import org.apache.iotdb.db.mpp.transformation.dag.udf.base.UDTFExecutor;
 
 import java.io.IOException;
 
