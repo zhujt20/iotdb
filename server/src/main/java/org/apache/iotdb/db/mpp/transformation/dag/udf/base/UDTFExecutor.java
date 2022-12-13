@@ -21,6 +21,7 @@ package org.apache.iotdb.db.mpp.transformation.dag.udf.base;
 
 import org.apache.iotdb.commons.udf.service.UDFManagementService;
 import org.apache.iotdb.commons.udf.utils.UDFDataTypeTransformer;
+import org.apache.iotdb.db.mpp.transformation.api.LayerPointReader;
 import org.apache.iotdb.db.mpp.transformation.datastructure.tv.ElasticSerializableTVList;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.iotdb.udf.api.UDTF;
@@ -160,7 +161,7 @@ public class UDTFExecutor {
     return configurations;
   }
 
-  public ElasticSerializableTVList getCollector() {
-    return collector;
+  public LayerPointReader getPointCollector() {
+    return collector.constructPointReaderUsingTrivialEvictionStrategy();
   }
 }
