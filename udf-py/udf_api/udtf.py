@@ -84,16 +84,6 @@ class UDTF(UDF):
         :param collector: used to collect output data points
         """
 
-    def map_row(self, row: Row) -> object:
-        """
-        When the user specifies MappableRowByRowAccessStrategy to access the original data in UDTFConfigurations, this
-        method will be called to process the transformation. In a single UDF query, this method may be called multiple
-        times.
-
-        :param row: original input data row (aligned by time)
-        """
-        pass
-
     def terminate(self, collector: PointCollector):
         """
         This method will be called once after all calls or { UDTF#transform(RowWindow, PointCollector) calls have been

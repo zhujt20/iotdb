@@ -19,8 +19,6 @@ from enum import Enum
 
 
 class AccessStrategyType(Enum):
-    # MappableRowByRowAccessStrategy
-    MAPPABLE_ROW_BY_ROW = 0
 
     # RowByRowAccessStrategy
     ROW_BY_ROW = 1
