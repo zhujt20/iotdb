@@ -15,26 +15,23 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.customizer.strategy.access_strategy import AccessStrategy
-from udf_api.customizer.strategy.access_strategy_type import AccessStrategyType
+from abc import ABCMeta
+
+from udf.api.customizer.parameter.udf_parameter_validator import UDFParameterValidator
 
 
-class RowByRowAccessStrategy(AccessStrategy):
-    """
-    Used in UDTF#beforeStart(UDFParameters, UDTFConfigurations).
-
-    When the access strategy of a UDTF is set to an instance of this class, the method UDTF#transform(Row) of the UDTF
-    will be called to transform the original data. You need to override the method in your own UDTF class.
-
-    Each call of the method UDTF#transform(Row) processes only one row (aligned by time) of the original data and can
-    generate any number of data points.
-    """
-
-    def check(self):
+class UDF(metaclass=ABCMeta):
+    def validate(self, validator: UDFParameterValidator):
         """
-        nothing needs to check
+        This method is mainly used to validate UDFParameters and it is executed before UDTF.beforeStart(UDFParameters,
+        UDTFConfigurations) is called.
+
+        :param validator: the validator used to validate UDFParameters
         """
         pass
 
-    def get_access_strategy_type(self) -> AccessStrategyType:
-        return AccessStrategyType.ROW_BY_ROW
+    def before_destroy(self):
+        """
+        This method is mainly used to release the resources used in the UDF.
+        """
+        pass

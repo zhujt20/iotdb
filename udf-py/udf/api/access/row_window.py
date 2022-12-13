@@ -18,9 +18,9 @@
 
 from abc import ABCMeta, abstractmethod
 
-from udf_api.access.row import Row
-from udf_api.access.row_iterator import RowIterator
-from udf_api.type.type import Type
+from udf.api.access.row import Row
+from udf.api.access.row_iterator import RowIterator
+from udf.api.type.type import Type
 
 
 class RowWindow(metaclass=ABCMeta):

@@ -16,12 +16,12 @@
 # under the License.
 from abc import abstractmethod
 
-from udf_api.access.row import Row
-from udf_api.access.row_window import RowWindow
-from udf_api.collector.point_collector import PointCollector
-from udf_api.customizer.config.udtf_configurations import UDTFConfigurations
-from udf_api.customizer.parameter.udf_parameters import UDFParameters
-from udf_api.udf import UDF
+from udf.api.access.row import Row
+from udf.api.access.row_window import RowWindow
+from udf.api.collector.point_collector import PointCollector
+from udf.api.customizer.config.udtf_configurations import UDTFConfigurations
+from udf.api.customizer.parameter.udf_parameters import UDFParameters
+from udf.api.udf import UDF
 
 
 class UDTF(UDF):

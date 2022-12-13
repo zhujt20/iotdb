@@ -15,15 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.exception.udf_parameter_not_valid_exception import (
-    UDFParameterNotValidException,
-)
+from udf.api.exception.udf_exception import UDFException
 
 
-class UDFOutputSeriesDataTypeNotValidException(UDFParameterNotValidException):
-    def __init__(self, index: int, types: str):
-        super().__init__(
-            "the data type of the output series (index: {}) is not valid. expected: {}.".format(
-                index, types
-            )
-        )
+class UDFParameterNotValidException(UDFException):
+    def __init__(self, message: str):
+        super().__init__(message)

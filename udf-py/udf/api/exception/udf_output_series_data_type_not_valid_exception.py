@@ -15,15 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.exception.udf_parameter_not_valid_exception import (
+from udf.api.exception.udf_parameter_not_valid_exception import (
     UDFParameterNotValidException,
 )
 
 
-class UDFInputSeriesIndexNotValidException(UDFParameterNotValidException):
-    def __init__(self, provided_index: int, valid_index_upper_bound: int):
+class UDFOutputSeriesDataTypeNotValidException(UDFParameterNotValidException):
+    def __init__(self, index: int, types: str):
         super().__init__(
-            "the index ({}) of the input series is not valid. valid index range: [0, {}).".format(
-                provided_index, valid_index_upper_bound
+            "the data type of the output series (index: {}) is not valid. expected: {}.".format(
+                index, types
             )
         )

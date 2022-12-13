@@ -15,31 +15,13 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from abc import ABCMeta, abstractmethod
+from udf.api.exception.udf_parameter_not_valid_exception import (
+    UDFParameterNotValidException,
+)
 
-from udf_api.customizer.strategy.access_strategy_type import AccessStrategyType
 
-
-class AccessStrategy(metaclass=ABCMeta):
-    """
-    Used to customize the strategy for accessing raw data in UDTF#beforeStart(UDFParameters,
-    UDTFConfigurations)}.
-    """
-
-    @abstractmethod
-    def check(self):
-        """
-        Used by the system to check the access strategy.
-
-        :raise UDFException: if invalid strategy is set
-        """
-        pass
-
-    @abstractmethod
-    def get_access_strategy_type(self) -> AccessStrategyType:
-        """
-        Returns the actual access strategy type.
-
-        :return AccessStrategyType: the actual access strategy type
-        """
-        pass
+class UDFAttributeNotProvidedException(UDFParameterNotValidException):
+    def __init__(self, required_attribute: str):
+        super().__init__(
+            "attribute {} is required but was not provided.".format(required_attribute)
+        )

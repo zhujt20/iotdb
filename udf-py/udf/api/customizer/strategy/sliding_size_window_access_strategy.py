@@ -15,9 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.customizer.strategy.access_strategy import AccessStrategy
-from udf_api.customizer.strategy.access_strategy_type import AccessStrategyType
-from udf_api.exception.udf_exception import UDFException
+from udf.api.customizer.strategy.access_strategy import AccessStrategy
+from udf.api.customizer.strategy.access_strategy_type import AccessStrategyType
+from udf.api.exception.udf_exception import UDFException
 
 
 class SlidingSizeWindowAccessStrategy(AccessStrategy):

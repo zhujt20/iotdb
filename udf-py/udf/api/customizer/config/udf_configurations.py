@@ -15,9 +15,18 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.exception.udf_exception import UDFException
+from abc import ABCMeta
+
+from udf.api.exception.udf_exception import UDFException
+from udf.api.type.type import Type
 
 
-class UDFParameterNotValidException(UDFException):
-    def __init__(self, message: str):
-        super().__init__(message)
+class UDFConfigurations(metaclass=ABCMeta):
+    _output_data_type: Type
+
+    def get_output_data_type(self):
+        return self._output_data_type
+
+    def check(self):
+        if self._output_data_type is None:
+            raise UDFException("UDF output_data_type is not set.")

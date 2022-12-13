@@ -15,13 +15,15 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.exception.udf_parameter_not_valid_exception import (
+from udf.api.exception.udf_parameter_not_valid_exception import (
     UDFParameterNotValidException,
 )
 
 
-class UDFAttributeNotProvidedException(UDFParameterNotValidException):
-    def __init__(self, required_attribute: str):
+class UDFInputSeriesIndexNotValidException(UDFParameterNotValidException):
+    def __init__(self, provided_index: int, valid_index_upper_bound: int):
         super().__init__(
-            "attribute {} is required but was not provided.".format(required_attribute)
+            "the index ({}) of the input series is not valid. valid index range: [0, {}).".format(
+                provided_index, valid_index_upper_bound
+            )
         )

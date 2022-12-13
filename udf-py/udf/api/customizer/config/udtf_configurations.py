@@ -15,10 +15,10 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.customizer.config.udf_configurations import UDFConfigurations
-from udf_api.customizer.strategy.access_strategy import AccessStrategy
-from udf_api.exception.udf_exception import UDFException
-from udf_api.type.type import Type
+from udf.api.customizer import UDFConfigurations
+from udf.api.customizer import AccessStrategy
+from udf.api.exception import UDFException
+from udf.api.type import Type
 
 
 class UDTFConfigurations(UDFConfigurations):

@@ -15,18 +15,31 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
-from udf_api.exception.udf_exception import UDFException
-from udf_api.type.type import Type
+from udf.api.customizer.strategy.access_strategy_type import AccessStrategyType
 
 
-class UDFConfigurations(metaclass=ABCMeta):
-    _output_data_type: Type
+class AccessStrategy(metaclass=ABCMeta):
+    """
+    Used to customize the strategy for accessing raw data in UDTF#beforeStart(UDFParameters,
+    UDTFConfigurations)}.
+    """
 
-    def get_output_data_type(self):
-        return self._output_data_type
-
+    @abstractmethod
     def check(self):
-        if self._output_data_type is None:
-            raise UDFException("UDF output_data_type is not set.")
+        """
+        Used by the system to check the access strategy.
+
+        :raise UDFException: if invalid strategy is set
+        """
+        pass
+
+    @abstractmethod
+    def get_access_strategy_type(self) -> AccessStrategyType:
+        """
+        Returns the actual access strategy type.
+
+        :return AccessStrategyType: the actual access strategy type
+        """
+        pass

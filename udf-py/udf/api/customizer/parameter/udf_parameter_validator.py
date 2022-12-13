@@ -17,23 +17,23 @@
 
 from typing import List
 
-from udf_api.customizer.parameter.udf_parameters import UDFParameters
-from udf_api.exception.udf_attribute_not_provided_exception import (
+from udf.api.customizer.parameter.udf_parameters import UDFParameters
+from udf.api.exception.udf_attribute_not_provided_exception import (
     UDFAttributeNotProvidedException,
 )
-from udf_api.exception.udf_input_series_data_type_not_valid_exception import (
+from udf.api.exception.udf_input_series_data_type_not_valid_exception import (
     UDFInputSeriesDataTypeNotValidException,
 )
-from udf_api.exception.udf_input_series_index_not_valid_exception import (
+from udf.api.exception.udf_input_series_index_not_valid_exception import (
     UDFInputSeriesIndexNotValidException,
 )
-from udf_api.exception.udf_input_series_number_not_valid_exception import (
+from udf.api.exception.udf_input_series_number_not_valid_exception import (
     UDFInputSeriesNumberNotValidException,
 )
-from udf_api.exception.udf_parameter_not_valid_exception import (
+from udf.api.exception.udf_parameter_not_valid_exception import (
     UDFParameterNotValidException,
 )
-from udf_api.type.type import Type
+from udf.api.type.type import Type
 
 
 class UDFParameterValidator:

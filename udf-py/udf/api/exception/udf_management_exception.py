@@ -15,23 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from abc import ABCMeta
-
-from udf_api.customizer.parameter.udf_parameter_validator import UDFParameterValidator
+from udf.api.exception.udf_exception import UDFException
 
 
-class UDF(metaclass=ABCMeta):
-    def validate(self, validator: UDFParameterValidator):
-        """
-        This method is mainly used to validate UDFParameters and it is executed before UDTF.beforeStart(UDFParameters,
-        UDTFConfigurations) is called.
-
-        :param validator: the validator used to validate UDFParameters
-        """
-        pass
-
-    def before_destroy(self):
-        """
-        This method is mainly used to release the resources used in the UDF.
-        """
-        pass
+class UDFManagementException(UDFException):
+    def __init__(self, message: str, cause: Exception = None):
+        super().__init__(message, cause)

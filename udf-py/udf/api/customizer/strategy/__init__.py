@@ -14,19 +14,3 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
-
-from typing import List
-
-from udf_api.exception.udf_parameter_not_valid_exception import (
-    UDFParameterNotValidException,
-)
-from udf_api.type.type import Type
-
-
-class UDFInputSeriesDataTypeNotValidException(UDFParameterNotValidException):
-    def __init__(self, index: int, actual: Type, expected: List[Type]):
-        super(
-            "the data type of the input series (index: {}) is not valid. expected: {}. actual: {}.".format(
-                index, expected, actual
-            )
-        )

@@ -17,7 +17,7 @@
 
 from typing import Dict, List
 
-from udf_api.type.type import Type
+from udf.api.type.type import Type
 
 
 # Used in UDTF#beforeStart(UDFParameters, UDTFConfigurations).

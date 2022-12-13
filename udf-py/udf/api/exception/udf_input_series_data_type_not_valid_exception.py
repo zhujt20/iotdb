@@ -15,21 +15,18 @@
 # specific language governing permissions and limitations
 # under the License.
 
-from udf_api.exception.udf_parameter_not_valid_exception import (
+from typing import List
+
+from udf.api.exception.udf_parameter_not_valid_exception import (
     UDFParameterNotValidException,
 )
+from udf.api.type.type import Type
 
 
-class UDFInputSeriesNumberNotValidException(UDFParameterNotValidException):
-    def __init__(
-        self, actual: int, expected_lower_bound: int, expected_upper_bound: int
-    ):
-        super().__init__(
-            "the number of the input series is not valid. expected: [{}, {}]. actual: {}.".format(
-                expected_lower_bound, expected_upper_bound, actual
-            )
-            if expected_lower_bound != expected_upper_bound
-            else "the number of the input series is not valid. expected: {}. actual: {}.".format(
-                expected_lower_bound, actual
+class UDFInputSeriesDataTypeNotValidException(UDFParameterNotValidException):
+    def __init__(self, index: int, actual: Type, expected: List[Type]):
+        super(
+            "the data type of the input series (index: {}) is not valid. expected: {}. actual: {}.".format(
+                index, expected, actual
             )
         )

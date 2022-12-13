@@ -17,8 +17,8 @@
 
 from abc import ABCMeta, abstractmethod
 
-from udf_api.type.binary import Binary
-from udf_api.type.type import Type
+from udf.api.type.binary import Binary
+from udf.api.type.type import Type
 
 
 class Row(metaclass=ABCMeta):
