@@ -86,6 +86,7 @@
         <module>thrift-confignode</module>
         <module>thrift-iot-consensus</module>
         <module>thrift-influxdb</module>
+        <module>thrift-udf</module>
         <module>service-rpc</module>
         <module>jdbc</module>
         <module>influxdb-protocol</module>
@@ -118,6 +119,7 @@
         <module>library-udf</module>
         <module>schema-engine-rocksdb</module>
         <module>udf-api</module>
+        <module>udf-py</module>
         <module>trigger-api</module>
         <module>rewrite-tsfile-tool</module>
         <module>external-api</module>
