@@ -53,18 +53,42 @@ public class InfluxProtoExample {
     Point.Builder builder = Point.measurement("student");
     Map<String, String> tags = new HashMap<>();
     Map<String, Object> fields = new HashMap<>();
-    tags.put("name", "xie");
+    tags.put("type", "type_a");
     tags.put("country", "china");
-    fields.put("score", 86.0);
+    fields.put("score", 80.0);
     builder.tag(tags);
     builder.fields(fields);
-    builder.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+    builder.time(1, TimeUnit.MILLISECONDS);
     Point point = builder.build();
+    influxDB.write(point);
+
+    builder = Point.measurement("student");
+    tags.clear();
+    fields.clear();
+    tags.put("type", "type_b");
+    tags.put("country", "china");
+    fields.put("score", 81.0);
+    builder.tag(tags);
+    builder.fields(fields);
+    builder.time(2, TimeUnit.MILLISECONDS);
+    point = builder.build();
+    influxDB.write(point);
+
+    builder = Point.measurement("student");
+    tags.clear();
+    fields.clear();
+    tags.put("type", "type_a");
+    tags.put("country", "usa");
+    fields.put("score", 82.0);
+    builder.tag(tags);
+    builder.fields(fields);
+    builder.time(3, TimeUnit.MILLISECONDS);
+    point = builder.build();
     influxDB.write(point);
   }
 
   private static void queryData() {
-    QueryResult queryResult = influxDB.query(new Query("select * from student", "database"));
+    QueryResult queryResult = influxDB.query(new Query("select * from student", "db_test"));
     for (QueryResult.Result result : queryResult.getResults()) {
       System.out.println(result);
     }

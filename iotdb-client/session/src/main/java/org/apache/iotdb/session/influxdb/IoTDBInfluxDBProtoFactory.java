@@ -19,17 +19,30 @@
 
 package org.apache.iotdb.session.influxdb;
 
+import org.apache.iotdb.rpc.IoTDBConnectionException;
+import org.apache.iotdb.rpc.StatementExecutionException;
 import org.apache.iotdb.session.pool.SessionPool;
 
 import okhttp3.OkHttpClient;
 import org.influxdb.InfluxDB;
+import org.influxdb.dto.Point;
 import org.influxdb.impl.InfluxDBImpl;
 
 public enum IoTDBInfluxDBProtoFactory {
   INSTANCE;
 
   private static final SessionPool sessionPool =
-      new SessionPool("127.0.0.1", 6667, "root", "root", 2);
+      new SessionPool("127.0.0.1", 5667, "root", "root", 2);
+
+  private static String db = "default_database";
+
+  private static int index = 0;
+  private static String[] sqls =
+      new String[] {
+        "insert into root.db_test.student.china.type_a(time, score) values (1, 80.0)",
+        "insert into root.db_test.student.china.type_b(time, score) values (2, 81.0)",
+        "insert into root.db_test.student.usa.type_a(time, score) values (3, 82.0)",
+      };
 
   IoTDBInfluxDBProtoFactory() {}
 
@@ -37,7 +50,39 @@ public enum IoTDBInfluxDBProtoFactory {
 
   public static InfluxDB connect(
       String url, String username, String password, final OkHttpClient.Builder client) {
-    return new InfluxDBImpl(url, username, password, client) {};
+    return new InfluxDBImpl(url, username, password, client) {
+
+      @Override
+      public void deleteDatabase(final String name) {
+        super.deleteDatabase(name);
+        try {
+          sessionPool.deleteStorageGroup("root." + name);
+        } catch (IoTDBConnectionException | StatementExecutionException e) {
+        }
+      }
+
+      @Override
+      public InfluxDB setDatabase(final String name) {
+        db = name;
+        return super.setDatabase(name);
+      }
+
+      @Override
+      public void close() {
+        super.close();
+        sessionPool.close();
+      }
+
+      @Override
+      public void write(final Point point) {
+        try {
+          sessionPool.executeNonQueryStatement(sqls[index++]);
+        } catch (Exception e) {
+          //
+        }
+        super.write(point);
+      }
+    };
   }
   //
   //  public static InfluxDB connect(String host, int rpcPort, String userName, String password) {
