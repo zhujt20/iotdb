@@ -87,6 +87,11 @@
             <artifactId>powermock-reflect</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.influxdb</groupId>
+            <artifactId>influxdb-java</artifactId>
+            <version>2.21</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
