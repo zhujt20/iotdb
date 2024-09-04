@@ -50,7 +50,7 @@ public enum IoTDBInfluxDBProtoFactory {
 
   public static InfluxDB connect(
       String url, String username, String password, final OkHttpClient.Builder client) {
-    return new InfluxDBImpl(url, username, password, client) {
+    return new InfluxDBImpl("http://127.0.0.1:8883/", username, password, client) {
 
       @Override
       public void deleteDatabase(final String name) {

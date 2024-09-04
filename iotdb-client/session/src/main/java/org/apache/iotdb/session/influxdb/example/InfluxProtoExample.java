@@ -38,7 +38,7 @@ public class InfluxProtoExample {
   public static void main(String[] args) {
     influxDB =
         IoTDBInfluxDBProtoFactory.connect(
-            "http://127.0.0.1:8883/", "root", "root", new OkHttpClient.Builder());
+            "http://127.0.0.1:5667/", "root", "root", new OkHttpClient.Builder());
     influxDB.deleteDatabase("db_test");
     influxDB.createDatabase("db_test");
     influxDB.setDatabase("db_test");
