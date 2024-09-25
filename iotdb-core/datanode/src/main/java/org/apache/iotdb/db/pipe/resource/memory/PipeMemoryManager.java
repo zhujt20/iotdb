@@ -79,6 +79,8 @@ public class PipeMemoryManager {
             "total",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "stream")
         .set(TOTAL_MEMORY_SIZE_IN_BYTES);
@@ -92,6 +94,8 @@ public class PipeMemoryManager {
             "total",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "stream");
   }

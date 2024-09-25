@@ -105,8 +105,10 @@ public class TimeSeriesMetadataCache {
             "TimeSeriesMetaCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "query-cache")
+            "query")
         .set(MEMORY_THRESHOLD_IN_TIME_SERIES_METADATA_CACHE);
     // add metrics
     MetricService.getInstance().addMetricSet(new TimeSeriesMetadataCacheMetrics(this));

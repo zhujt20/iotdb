@@ -94,8 +94,10 @@ public class PrimitiveArrayManager {
             "pooled_array",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "write",
             Tag.MODULE.toString(),
-            "storage-write")
+            "storage")
         .set((long) POOLED_ARRAYS_MEMORY_THRESHOLD);
     // POOLED_ARRAYS_MEMORY_THRESHOLD = ∑(datatype[i].getDataTypeSize() * ARRAY_SIZE * LIMITS[i])
     // we init all LIMITS[i] with the same value, so we have

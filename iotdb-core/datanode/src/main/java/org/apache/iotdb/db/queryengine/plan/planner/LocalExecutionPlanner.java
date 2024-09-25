@@ -86,8 +86,10 @@ public class LocalExecutionPlanner {
             "ChunkCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
-            "query-cache")
+            "query")
         .set(ALLOCATE_MEMORY_FOR_OPERATORS);
     MetricService.getInstance()
         .createAutoGauge(
@@ -99,8 +101,10 @@ public class LocalExecutionPlanner {
             "Operators",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
-            "query-cache");
+            "query");
   }
 
   public long getFreeMemoryForOperators() {

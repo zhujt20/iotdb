@@ -61,6 +61,8 @@ public class TimePartitionManager {
             "timePartitionInfo",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "storage");
     MetricService.getInstance()
@@ -71,6 +73,8 @@ public class TimePartitionManager {
             "timePartitionInfo",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "storage")
         .set(timePartitionInfoMemoryThreshold);

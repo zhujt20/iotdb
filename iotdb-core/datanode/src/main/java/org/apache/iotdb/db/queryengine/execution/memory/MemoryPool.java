@@ -148,6 +148,8 @@ public class MemoryPool {
             "DataExchange",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "query")
         .set(maxBytes);
@@ -161,6 +163,8 @@ public class MemoryPool {
             "DataExchange",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "query");
   }

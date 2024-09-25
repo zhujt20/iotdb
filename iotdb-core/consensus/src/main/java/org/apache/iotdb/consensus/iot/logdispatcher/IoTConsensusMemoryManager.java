@@ -48,6 +48,8 @@ public class IoTConsensusMemoryManager {
             "IoT-Consensus",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "consensus")
         .set(maxMemorySizeInByte);

@@ -81,8 +81,10 @@ public class BloomFilterCache {
             "BloomFilterCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "query-cache")
+            "query")
         .set(MEMORY_THRESHOLD_IN_BLOOM_FILTER_CACHE);
   }
 

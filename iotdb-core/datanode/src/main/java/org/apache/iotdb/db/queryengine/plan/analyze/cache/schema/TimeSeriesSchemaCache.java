@@ -82,8 +82,10 @@ public class TimeSeriesSchemaCache {
             "TimeSeriesSchemaCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "schema-cache")
+            "schema")
         .set(config.getAllocateMemoryForSchemaCache());
   }
 

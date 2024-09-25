@@ -105,8 +105,10 @@ public class ChunkCache {
             "ChunkCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "query-cache")
+            "query")
         .set(MEMORY_THRESHOLD_IN_CHUNK_CACHE);
     // add metrics
     MetricService.getInstance().addMetricSet(new ChunkCacheMetrics(this));

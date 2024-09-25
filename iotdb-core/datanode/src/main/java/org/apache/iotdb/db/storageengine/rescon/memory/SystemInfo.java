@@ -415,6 +415,8 @@ public class SystemInfo {
             "total",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "off-heap")
         .set(config.getMaxOffHeapMemoryBytes());
@@ -426,6 +428,8 @@ public class SystemInfo {
             "direct_buffer",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "off-heap")
         .set(totalDirectBufferMemorySizeLimit);
@@ -439,8 +443,10 @@ public class SystemInfo {
             "direct_buffer",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "write",
             Tag.MODULE.toString(),
-            "storage-write");
+            "storage");
     MetricService.getInstance()
         .getOrCreateGauge(
             Metric.IOT_MEMORY.toString(),
@@ -449,8 +455,10 @@ public class SystemInfo {
             "memtable",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "write",
             Tag.MODULE.toString(),
-            "storage-write")
+            "storage")
         .set(memorySizeForMemtable);
     MetricService.getInstance()
         .createAutoGauge(
@@ -462,8 +470,10 @@ public class SystemInfo {
             "memtable",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "write",
             Tag.MODULE.toString(),
-            "storage-write");
+            "storage");
     MetricService.getInstance()
         .getOrCreateGauge(
             Metric.IOT_MEMORY.toString(),
@@ -472,6 +482,8 @@ public class SystemInfo {
             "compaction",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "compaction",
             Tag.MODULE.toString(),
             "storage-compaction")
         .set(memorySizeForCompaction);
@@ -485,8 +497,10 @@ public class SystemInfo {
             "compaction",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "compaction",
             Tag.MODULE.toString(),
-            "storage-compaction");
+            "storage");
     FLUSH_THRESHOLD = memorySizeForMemtable * config.getFlushProportion();
     REJECT_THRESHOLD = memorySizeForMemtable * config.getRejectProportion();
     WritingMetrics.getInstance().recordFlushThreshold(FLUSH_THRESHOLD);

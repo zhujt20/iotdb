@@ -60,6 +60,8 @@ public class TsFileResourceManager {
             "TimeIndex",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "query")
         .set(timeIndexMemoryThreshold);
@@ -73,6 +75,8 @@ public class TsFileResourceManager {
             "TimeIndex",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "query");
   }

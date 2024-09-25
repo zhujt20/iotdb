@@ -2106,6 +2106,8 @@ public class IoTDBDescriptor {
                   "Coordinator",
                   Tag.TYPE.toString(),
                   "threshold",
+                  Tag.FROM.toString(),
+                  "other",
                   Tag.MODULE.toString(),
                   "query")
               .set(maxMemoryAvailable * Integer.parseInt(proportions[3].trim()) / proportionSum);

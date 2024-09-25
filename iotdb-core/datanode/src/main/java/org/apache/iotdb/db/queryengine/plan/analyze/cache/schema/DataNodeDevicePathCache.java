@@ -59,8 +59,10 @@ public class DataNodeDevicePathCache {
             "DataNodeDevicePathCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "storage-cache")
+            "storage")
         .set(maxWeight);
   }
 

@@ -75,8 +75,10 @@ public class DeviceUsingTemplateSchemaCache {
             "DeviceUsingTemplateSchemaCache",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
-            "schema-cache")
+            "schema")
         .set(config.getAllocateMemoryForSchemaCache());
   }
 
