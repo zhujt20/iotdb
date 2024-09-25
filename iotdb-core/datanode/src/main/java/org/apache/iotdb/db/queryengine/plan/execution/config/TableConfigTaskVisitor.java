@@ -20,6 +20,8 @@
 package org.apache.iotdb.db.queryengine.plan.execution.config;
 
 import org.apache.iotdb.commons.exception.IllegalPathException;
+import org.apache.iotdb.commons.pipe.config.constant.PipeExtractorConstant;
+import org.apache.iotdb.commons.pipe.config.constant.SystemConstant;
 import org.apache.iotdb.commons.schema.table.TsTable;
 import org.apache.iotdb.commons.schema.table.column.TsTableColumnCategory;
 import org.apache.iotdb.confignode.rpc.thrift.TDatabaseSchema;
@@ -94,9 +96,12 @@ import org.apache.iotdb.db.queryengine.plan.statement.metadata.ShowClusterStatem
 import org.apache.iotdb.db.queryengine.plan.statement.metadata.ShowRegionStatement;
 import org.apache.iotdb.db.queryengine.plan.statement.sys.FlushStatement;
 import org.apache.iotdb.db.queryengine.plan.statement.sys.SetConfigurationStatement;
+import org.apache.iotdb.pipe.api.customizer.parameter.PipeParameters;
 
 import org.apache.tsfile.enums.TSDataType;
 import org.apache.tsfile.utils.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -121,6 +126,8 @@ import static org.apache.tsfile.common.constant.TsFileConstant.PATH_SEPARATOR;
 import static org.apache.tsfile.common.constant.TsFileConstant.PATH_SEPARATOR_CHAR;
 
 public class TableConfigTaskVisitor extends AstVisitor<IConfigTask, MPPQueryContext> {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(TableConfigTaskVisitor.class);
 
   private static final String DATABASE_NOT_SPECIFIED = "database is not specified";
 
@@ -456,6 +463,23 @@ public class TableConfigTaskVisitor extends AstVisitor<IConfigTask, MPPQueryCont
   @Override
   protected IConfigTask visitCreatePipe(CreatePipe node, MPPQueryContext context) {
     context.setQueryType(QueryType.WRITE);
+
+    final String databaseSetInSession = clientSession.getDatabaseName();
+    if (Objects.nonNull(databaseSetInSession)) {
+      final PipeParameters parameters = new PipeParameters(node.getExtractorAttributes());
+      if (!parameters.hasAnyAttributes(
+          PipeExtractorConstant.EXTRACTOR_CAPTURE_DATA_DATABASE_KEY,
+          PipeExtractorConstant.SOURCE_CAPTURE_DATA_DATABASE_KEY)) {
+        LOGGER.info(
+            "Database name is not specified in the extractor attributes of the create pipe statement {}, "
+                + "the database name in the session will be used: {}",
+            node,
+            databaseSetInSession);
+        node.getExtractorAttributes()
+            .put(SystemConstant.SESSION_DATABASE_KEY, databaseSetInSession);
+      }
+    }
+
     return new CreatePipeTask(node);
   }
 

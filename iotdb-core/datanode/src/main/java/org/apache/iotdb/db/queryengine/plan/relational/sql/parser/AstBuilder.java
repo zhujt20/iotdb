@@ -570,12 +570,12 @@ public class AstBuilder extends RelationalSqlBaseVisitor<Node> {
         ctx.extractorAttributesClause() != null
             ? parseExtractorAttributesClause(
                 ctx.extractorAttributesClause().extractorAttributeClause())
-            : Collections.emptyMap();
+            : new HashMap<>(); // DO NOT USE Collections.emptyMap() here
     final Map<String, String> processorAttributes =
         ctx.processorAttributesClause() != null
             ? parseProcessorAttributesClause(
                 ctx.processorAttributesClause().processorAttributeClause())
-            : Collections.emptyMap();
+            : new HashMap<>(); // DO NOT USE Collections.emptyMap() here
     final Map<String, String> connectorAttributes =
         ctx.connectorAttributesClause() != null
             ? parseConnectorAttributesClause(
@@ -638,7 +638,7 @@ public class AstBuilder extends RelationalSqlBaseVisitor<Node> {
       isReplaceAllExtractorAttributes =
           Objects.nonNull(ctx.alterExtractorAttributesClause().REPLACE());
     } else {
-      extractorAttributes = Collections.emptyMap();
+      extractorAttributes = new HashMap<>(); // DO NOT USE Collections.emptyMap() here
       isReplaceAllExtractorAttributes = false;
     }
 
@@ -651,7 +651,7 @@ public class AstBuilder extends RelationalSqlBaseVisitor<Node> {
       isReplaceAllProcessorAttributes =
           Objects.nonNull(ctx.alterProcessorAttributesClause().REPLACE());
     } else {
-      processorAttributes = Collections.emptyMap();
+      processorAttributes = new HashMap<>(); // DO NOT USE Collections.emptyMap() here
       isReplaceAllProcessorAttributes = false;
     }
 
@@ -664,7 +664,7 @@ public class AstBuilder extends RelationalSqlBaseVisitor<Node> {
       isReplaceAllConnectorAttributes =
           Objects.nonNull(ctx.alterConnectorAttributesClause().REPLACE());
     } else {
-      connectorAttributes = Collections.emptyMap();
+      connectorAttributes = new HashMap<>(); // DO NOT USE Collections.emptyMap() here
       isReplaceAllConnectorAttributes = false;
     }
 

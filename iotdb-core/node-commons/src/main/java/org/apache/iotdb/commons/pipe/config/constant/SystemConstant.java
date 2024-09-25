@@ -24,6 +24,8 @@ public class SystemConstant {
   public static final String RESTART_KEY = "__system.restart";
   public static final boolean RESTART_DEFAULT_VALUE = false;
 
+  public static final String SESSION_DATABASE_KEY = "__system.session.database";
+
   private SystemConstant() {
     throw new IllegalStateException("Utility class");
   }

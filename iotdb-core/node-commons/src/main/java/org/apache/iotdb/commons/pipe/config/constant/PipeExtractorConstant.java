@@ -30,6 +30,13 @@ public class PipeExtractorConstant {
   public static final String EXTRACTOR_DIALECT_TABLE_VALUE = "table";
   public static final String EXTRACTOR_DIALECT_DEFAULT_VALUE = EXTRACTOR_DIALECT_TREE_VALUE;
 
+  public static final String EXTRACTOR_CAPTURE_DATA_DATABASE_KEY =
+      "extractor.capture.data.database";
+  public static final String SOURCE_CAPTURE_DATA_DATABASE_KEY = "source.capture.data.database";
+
+  public static final String EXTRACTOR_CAPTURE_DATA_SQL = "extractor.capture.data.sql";
+  public static final String SOURCE_CAPTURE_DATA_SQL = "source.capture.data.sql";
+
   public static final String EXTRACTOR_INCLUSION_KEY = "extractor.inclusion";
   public static final String SOURCE_INCLUSION_KEY = "source.inclusion";
   public static final String EXTRACTOR_INCLUSION_DEFAULT_VALUE = "data.insert";
