@@ -19,12 +19,43 @@
 
 package org.apache.iotdb.commons.pipe.config.constant;
 
+import org.apache.iotdb.pipe.api.customizer.parameter.PipeParameters;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class SystemConstant {
 
   public static final String RESTART_KEY = "__system.restart";
   public static final boolean RESTART_DEFAULT_VALUE = false;
 
+  public static final String SESSION_MODEL_KEY = "__system.session.model";
+  public static final String SESSION_MODEL_TREE_VALUE = "tree";
+  public static final String SESSION_MODEL_TABLE_VALUE = "table";
+
   public static final String SESSION_DATABASE_KEY = "__system.session.database";
+
+  /////////////////////////////////// Utility ///////////////////////////////////
+
+  public static final Set<String> SYSTEM_KEYS = new HashSet<>();
+
+  static {
+    SYSTEM_KEYS.add(RESTART_KEY);
+    SYSTEM_KEYS.add(SESSION_MODEL_KEY);
+    SYSTEM_KEYS.add(SESSION_DATABASE_KEY);
+  }
+
+  public static PipeParameters copyAndRemoveSystemKeys(final PipeParameters givenPipeParameters) {
+    final Map<String, String> attributes = new HashMap<>(givenPipeParameters.getAttribute());
+    for (final String key : SYSTEM_KEYS) {
+      attributes.remove(key);
+    }
+    return new PipeParameters(attributes);
+  }
+
+  /////////////////////////////////// Private Constructor ///////////////////////////////////
 
   private SystemConstant() {
     throw new IllegalStateException("Utility class");

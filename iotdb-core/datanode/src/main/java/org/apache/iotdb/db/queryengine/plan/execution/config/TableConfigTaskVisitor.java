@@ -464,6 +464,11 @@ public class TableConfigTaskVisitor extends AstVisitor<IConfigTask, MPPQueryCont
   protected IConfigTask visitCreatePipe(CreatePipe node, MPPQueryContext context) {
     context.setQueryType(QueryType.WRITE);
 
+    // Inject table model into the extractor attributes
+    node.getExtractorAttributes()
+        .put(SystemConstant.SESSION_MODEL_KEY, SystemConstant.SESSION_MODEL_TABLE_VALUE);
+
+    // Inject the database name from the session if it is not specified in the create pipe statement
     final String databaseSetInSession = clientSession.getDatabaseName();
     if (Objects.nonNull(databaseSetInSession)) {
       final PipeParameters parameters = new PipeParameters(node.getExtractorAttributes());
