@@ -81,6 +81,8 @@ public class SchemaEngineMemMetric implements ISchemaEngineMetric {
             "SchemaEngine",
             Tag.TYPE.toString(),
             "actual",
+            Tag.FROM.toString(),
+            "other",
             Tag.MODULE.toString(),
             "schema");
     metricService.createAutoGauge(
@@ -100,6 +102,8 @@ public class SchemaEngineMemMetric implements ISchemaEngineMetric {
             "SchemaEngine",
             Tag.TYPE.toString(),
             "threshold",
+            Tag.FROM.toString(),
+            "cache",
             Tag.MODULE.toString(),
             "schema");
     metricService.createAutoGauge(

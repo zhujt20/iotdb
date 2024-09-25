@@ -485,7 +485,7 @@ public class SystemInfo {
             Tag.FROM.toString(),
             "compaction",
             Tag.MODULE.toString(),
-            "storage-compaction")
+            "storage")
         .set(memorySizeForCompaction);
     MetricService.getInstance()
         .createAutoGauge(
