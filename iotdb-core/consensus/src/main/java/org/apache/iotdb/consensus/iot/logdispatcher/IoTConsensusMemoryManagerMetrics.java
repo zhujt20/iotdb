@@ -43,6 +43,17 @@ public class IoTConsensusMemoryManagerMetrics implements IMetricSet {
         Tag.NAME.toString(),
         "IoTConsensus");
     metricService.createAutoGauge(
+        Metric.IOT_MEMORY.toString(),
+        MetricLevel.IMPORTANT,
+        iotConsensusMemoryManager,
+        IoTConsensusMemoryManager::getMemorySizeInByte,
+        Tag.NAME.toString(),
+        "IoT-Consensus",
+        Tag.TYPE.toString(),
+        "actual",
+        Tag.MODULE.toString(),
+        "consensus");
+    metricService.createAutoGauge(
         Metric.MEM.toString(),
         MetricLevel.IMPORTANT,
         iotConsensusMemoryManager,

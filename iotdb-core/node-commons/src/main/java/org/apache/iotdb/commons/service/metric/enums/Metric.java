@@ -179,6 +179,7 @@ public enum Metric {
   LOAD_TIME_COST("load_time_cost"),
   LOAD_POINT_COUNT("load_point_count"),
   MEMTABLE_POINT_COUNT("memtable_point_count"),
+  IOT_MEMORY("iot_memory"),
   ;
 
   final String value;

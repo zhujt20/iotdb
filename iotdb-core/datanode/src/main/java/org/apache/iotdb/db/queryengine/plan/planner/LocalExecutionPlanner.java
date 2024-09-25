@@ -19,6 +19,9 @@
 package org.apache.iotdb.db.queryengine.plan.planner;
 
 import org.apache.iotdb.commons.path.IFullPath;
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.protocol.session.IClientSession;
@@ -38,6 +41,7 @@ import org.apache.iotdb.db.queryengine.plan.relational.metadata.TableMetadataImp
 import org.apache.iotdb.db.schemaengine.schemaregion.ISchemaRegion;
 import org.apache.iotdb.db.storageengine.dataregion.read.QueryDataSourceType;
 import org.apache.iotdb.db.utils.SetThreadName;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import org.apache.tsfile.file.metadata.IDeviceID;
 import org.slf4j.Logger;
@@ -72,6 +76,32 @@ public class LocalExecutionPlanner {
 
   /** allocated memory for operator execution */
   private long freeMemoryForOperators = ALLOCATE_MEMORY_FOR_OPERATORS;
+
+  private LocalExecutionPlanner() {
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "ChunkCache",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "query-cache")
+        .set(ALLOCATE_MEMORY_FOR_OPERATORS);
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            this,
+            LocalExecutionPlanner::getAllocateMemoryForOperators,
+            Tag.NAME.toString(),
+            "Operators",
+            Tag.TYPE.toString(),
+            "actual",
+            Tag.MODULE.toString(),
+            "query-cache");
+  }
 
   public long getFreeMemoryForOperators() {
     return freeMemoryForOperators;

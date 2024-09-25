@@ -20,6 +20,7 @@
 package org.apache.iotdb.db.schemaengine.metric;
 
 import org.apache.iotdb.commons.conf.CommonDescriptor;
+import org.apache.iotdb.commons.service.metric.MetricService;
 import org.apache.iotdb.commons.service.metric.enums.Metric;
 import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.consensus.ConsensusFactory;
@@ -70,6 +71,18 @@ public class SchemaEngineMemMetric implements ISchemaEngineMetric {
         ISchemaEngineStatistics::getMemoryUsage,
         Tag.NAME.toString(),
         TOTAL_MEM_USAGE);
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            engineStatistics,
+            ISchemaEngineStatistics::getMemoryUsage,
+            Tag.NAME.toString(),
+            "SchemaEngine",
+            Tag.TYPE.toString(),
+            "actual",
+            Tag.MODULE.toString(),
+            "schema");
     metricService.createAutoGauge(
         Metric.SCHEMA_ENGINE.toString(),
         MetricLevel.IMPORTANT,
@@ -77,6 +90,18 @@ public class SchemaEngineMemMetric implements ISchemaEngineMetric {
         ISchemaEngineStatistics::getMemoryCapacity,
         Tag.NAME.toString(),
         MEM_CAPACITY);
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            engineStatistics,
+            ISchemaEngineStatistics::getMemoryCapacity,
+            Tag.NAME.toString(),
+            "SchemaEngine",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "schema");
     metricService.createAutoGauge(
         Metric.SCHEMA_ENGINE.toString(),
         MetricLevel.IMPORTANT,

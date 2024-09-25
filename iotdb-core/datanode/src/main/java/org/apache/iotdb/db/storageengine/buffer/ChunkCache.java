@@ -20,6 +20,8 @@
 package org.apache.iotdb.db.storageengine.buffer;
 
 import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.TestOnly;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
@@ -27,6 +29,7 @@ import org.apache.iotdb.db.queryengine.metric.ChunkCacheMetrics;
 import org.apache.iotdb.db.queryengine.metric.SeriesScanCostMetricSet;
 import org.apache.iotdb.db.storageengine.dataregion.read.control.FileReaderManager;
 import org.apache.iotdb.db.storageengine.dataregion.tsfile.TsFileID;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
@@ -94,6 +97,17 @@ public class ChunkCache {
                   }
                 });
 
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "ChunkCache",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "query-cache")
+        .set(MEMORY_THRESHOLD_IN_CHUNK_CACHE);
     // add metrics
     MetricService.getInstance().addMetricSet(new ChunkCacheMetrics(this));
   }

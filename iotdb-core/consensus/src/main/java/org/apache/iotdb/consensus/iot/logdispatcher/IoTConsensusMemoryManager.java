@@ -20,6 +20,9 @@
 package org.apache.iotdb.consensus.iot.logdispatcher;
 
 import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +40,17 @@ public class IoTConsensusMemoryManager {
 
   private IoTConsensusMemoryManager() {
     MetricService.getInstance().addMetricSet(new IoTConsensusMemoryManagerMetrics(this));
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "IoT-Consensus",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "consensus")
+        .set(maxMemorySizeInByte);
   }
 
   public boolean reserve(long size, boolean fromQueue) {

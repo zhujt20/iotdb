@@ -25,6 +25,8 @@ import org.apache.iotdb.commons.conf.IoTDBConstant;
 import org.apache.iotdb.commons.exception.BadNodeUrlException;
 import org.apache.iotdb.commons.schema.SchemaConstant;
 import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.NodeUrlUtils;
 import org.apache.iotdb.confignode.rpc.thrift.TCQConfig;
 import org.apache.iotdb.confignode.rpc.thrift.TGlobalConfig;
@@ -52,10 +54,12 @@ import org.apache.iotdb.db.utils.datastructure.TVListSortAlgorithm;
 import org.apache.iotdb.external.api.IPropertiesLoader;
 import org.apache.iotdb.metrics.config.MetricConfigDescriptor;
 import org.apache.iotdb.metrics.config.ReloadLevel;
+import org.apache.iotdb.metrics.core.IoTDBMetricManager;
 import org.apache.iotdb.metrics.metricsets.system.SystemMetrics;
 import org.apache.iotdb.metrics.reporter.iotdb.IoTDBInternalMemoryReporter;
 import org.apache.iotdb.metrics.reporter.iotdb.IoTDBInternalReporter;
 import org.apache.iotdb.metrics.utils.InternalReporterType;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 import org.apache.iotdb.metrics.utils.NodeType;
 import org.apache.iotdb.rpc.DeepCopyRpcTransportFactory;
 import org.apache.iotdb.rpc.ZeroCopyRpcTransportFactory;
@@ -2094,6 +2098,17 @@ public class IoTDBDescriptor {
               maxMemoryAvailable * Integer.parseInt(proportions[2].trim()) / proportionSum);
           conf.setAllocateMemoryForCoordinator(
               maxMemoryAvailable * Integer.parseInt(proportions[3].trim()) / proportionSum);
+          IoTDBMetricManager.getInstance()
+              .getOrCreateGauge(
+                  Metric.IOT_MEMORY.toString(),
+                  MetricLevel.IMPORTANT,
+                  Tag.NAME.toString(),
+                  "Coordinator",
+                  Tag.TYPE.toString(),
+                  "threshold",
+                  Tag.MODULE.toString(),
+                  "query")
+              .set(maxMemoryAvailable * Integer.parseInt(proportions[3].trim()) / proportionSum);
           conf.setAllocateMemoryForOperators(
               maxMemoryAvailable * Integer.parseInt(proportions[4].trim()) / proportionSum);
           conf.setAllocateMemoryForDataExchange(

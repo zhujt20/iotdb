@@ -19,12 +19,16 @@
 
 package org.apache.iotdb.db.queryengine.plan.relational.metadata.fetcher.cache;
 
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.queryengine.plan.analyze.cache.schema.dualkeycache.IDualKeyCache;
 import org.apache.iotdb.db.queryengine.plan.analyze.cache.schema.dualkeycache.impl.DualKeyCacheBuilder;
 import org.apache.iotdb.db.queryengine.plan.analyze.cache.schema.dualkeycache.impl.DualKeyCachePolicy;
 import org.apache.iotdb.db.schemaengine.schemaregion.SchemaRegion;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import java.util.Map;
 import java.util.Objects;
@@ -68,6 +72,17 @@ public class TableDeviceSchemaCache {
             .secondKeySizeComputer(TableDeviceId::estimateSize)
             .valueSizeComputer(TableDeviceCacheEntry::estimateSize)
             .build();
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "TableDeviceSchemaCache",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "schema-cache")
+        .set(config.getAllocateMemoryForSchemaCache());
   }
 
   // The input deviceId shall have its tailing nulls trimmed

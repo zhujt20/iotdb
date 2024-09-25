@@ -21,8 +21,12 @@ package org.apache.iotdb.db.queryengine.plan.analyze.cache.schema;
 
 import org.apache.iotdb.commons.exception.IllegalPathException;
 import org.apache.iotdb.commons.path.PartialPath;
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
@@ -36,16 +40,28 @@ public class DataNodeDevicePathCache {
   private final Cache<String, PartialPath> devicePathCache;
 
   private DataNodeDevicePathCache() {
+    long maxWeight =
+        (long)
+            (config.getAllocateMemoryForStorageEngine()
+                * config.getWriteProportionForMemtable()
+                * config.getDevicePathCacheProportion());
     devicePathCache =
         Caffeine.newBuilder()
-            .maximumWeight(
-                (long)
-                    (config.getAllocateMemoryForStorageEngine()
-                        * config.getWriteProportionForMemtable()
-                        * config.getDevicePathCacheProportion()))
+            .maximumWeight(maxWeight)
             .weigher(
                 (Weigher<String, PartialPath>) (key, val) -> (PartialPath.estimateSize(val) + 32))
             .build();
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "DataNodeDevicePathCache",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "storage-cache")
+        .set(maxWeight);
   }
 
   public static DataNodeDevicePathCache getInstance() {

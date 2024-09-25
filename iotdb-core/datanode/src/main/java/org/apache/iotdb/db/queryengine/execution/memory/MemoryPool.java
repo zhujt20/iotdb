@@ -19,8 +19,12 @@
 
 package org.apache.iotdb.db.queryengine.execution.memory;
 
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.TestOnly;
 import org.apache.iotdb.db.exception.runtime.MemoryLeakException;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import com.google.common.util.concurrent.AbstractFuture;
 import com.google.common.util.concurrent.Futures;
@@ -135,6 +139,30 @@ public class MemoryPool {
         maxBytes);
     this.maxBytesPerFragmentInstance = maxBytesPerFragmentInstance;
     this.remainingBytes = new AtomicLong(maxBytes);
+
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "DataExchange",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "query")
+        .set(maxBytes);
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            this,
+            MemoryPool::getRemainingBytes,
+            Tag.NAME.toString(),
+            "DataExchange",
+            Tag.TYPE.toString(),
+            "actual",
+            Tag.MODULE.toString(),
+            "query");
   }
 
   public String getId() {

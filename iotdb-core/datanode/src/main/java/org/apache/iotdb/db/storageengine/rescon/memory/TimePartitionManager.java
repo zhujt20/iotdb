@@ -20,11 +20,15 @@
 package org.apache.iotdb.db.storageengine.rescon.memory;
 
 import org.apache.iotdb.commons.consensus.DataRegionId;
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.TestOnly;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.pipe.extractor.dataregion.realtime.listener.PipeTimePartitionListener;
 import org.apache.iotdb.db.storageengine.StorageEngine;
 import org.apache.iotdb.db.storageengine.dataregion.DataRegion;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import org.apache.tsfile.utils.Pair;
 import org.slf4j.Logger;
@@ -47,6 +51,33 @@ public class TimePartitionManager {
 
   private TimePartitionManager() {
     timePartitionInfoMap = new HashMap<>();
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            this,
+            TimePartitionManager::getMemCost,
+            Tag.NAME.toString(),
+            "timePartitionInfo",
+            Tag.TYPE.toString(),
+            "actual",
+            Tag.MODULE.toString(),
+            "storage");
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "timePartitionInfo",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "storage")
+        .set(timePartitionInfoMemoryThreshold);
+  }
+
+  long getMemCost() {
+    return memCost;
   }
 
   public void registerTimePartitionInfo(TimePartitionInfo timePartitionInfo) {

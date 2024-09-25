@@ -18,11 +18,15 @@
  */
 package org.apache.iotdb.db.storageengine.rescon.memory;
 
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.TestOnly;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.storageengine.dataregion.tsfile.TsFileResource;
 import org.apache.iotdb.db.storageengine.dataregion.tsfile.timeindex.TimeIndexLevel;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +50,32 @@ public class TsFileResourceManager {
 
   // degraded time index number
   private long degradedTimeIndexNum = 0;
+
+  private TsFileResourceManager() {
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "TimeIndex",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "query")
+        .set(timeIndexMemoryThreshold);
+    MetricService.getInstance()
+        .createAutoGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            this,
+            TsFileResourceManager::getTotalTimeIndexMemCost,
+            Tag.NAME.toString(),
+            "TimeIndex",
+            Tag.TYPE.toString(),
+            "actual",
+            Tag.MODULE.toString(),
+            "query");
+  }
 
   @TestOnly
   public void setTimeIndexMemoryThreshold(long timeIndexMemoryThreshold) {

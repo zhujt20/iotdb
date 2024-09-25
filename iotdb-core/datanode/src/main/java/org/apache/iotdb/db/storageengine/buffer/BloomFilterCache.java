@@ -19,10 +19,14 @@
 
 package org.apache.iotdb.db.storageengine.buffer;
 
+import org.apache.iotdb.commons.service.metric.MetricService;
+import org.apache.iotdb.commons.service.metric.enums.Metric;
+import org.apache.iotdb.commons.service.metric.enums.Tag;
 import org.apache.iotdb.commons.utils.TestOnly;
 import org.apache.iotdb.db.conf.IoTDBConfig;
 import org.apache.iotdb.db.conf.IoTDBDescriptor;
 import org.apache.iotdb.db.storageengine.dataregion.read.control.FileReaderManager;
+import org.apache.iotdb.metrics.utils.MetricLevel;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
@@ -69,6 +73,17 @@ public class BloomFilterCache {
                       FileReaderManager.getInstance().get(key.filePath, true);
                   return reader.readBloomFilter();
                 });
+    MetricService.getInstance()
+        .getOrCreateGauge(
+            Metric.IOT_MEMORY.toString(),
+            MetricLevel.IMPORTANT,
+            Tag.NAME.toString(),
+            "BloomFilterCache",
+            Tag.TYPE.toString(),
+            "threshold",
+            Tag.MODULE.toString(),
+            "query-cache")
+        .set(MEMORY_THRESHOLD_IN_BLOOM_FILTER_CACHE);
   }
 
   public static BloomFilterCache getInstance() {
