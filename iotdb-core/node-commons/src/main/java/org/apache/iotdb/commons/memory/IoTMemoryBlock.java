@@ -33,8 +33,6 @@ public class IoTMemoryBlock implements AutoCloseable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IoTMemoryBlock.class);
 
-  private final IoTMemoryManager ioTMemoryManager = null; // TODO @spricoder
-
   private final ReentrantLock lock = new ReentrantLock();
 
   private final AtomicLong memoryUsageInBytes = new AtomicLong(0);
@@ -46,18 +44,13 @@ public class IoTMemoryBlock implements AutoCloseable {
 
   private volatile boolean isReleased = false;
 
+  private final IoTMemoryManager ioTMemoryManager = null; // TODO @spricoder
+
   public IoTMemoryBlock(final long memoryUsageInBytes) {
     this.memoryUsageInBytes.set(memoryUsageInBytes);
   }
 
-  public long getMemoryUsageInBytes() {
-    return memoryUsageInBytes.get();
-  }
-
-  public void setMemoryUsageInBytes(final long memoryUsageInBytes) {
-    this.memoryUsageInBytes.set(memoryUsageInBytes);
-  }
-
+  // region Shrink and Expand
   public IoTMemoryBlock setShrinkMethod(final LongUnaryOperator shrinkMethod) {
     this.shrinkMethod.set(shrinkMethod);
     return this;
@@ -148,6 +141,9 @@ public class IoTMemoryBlock implements AutoCloseable {
     return true;
   }
 
+  // endregion
+
+  // region Properties of Memory Block
   boolean isReleased() {
     return isReleased;
   }
@@ -155,6 +151,16 @@ public class IoTMemoryBlock implements AutoCloseable {
   void markAsReleased() {
     isReleased = true;
   }
+
+  public long getMemoryUsageInBytes() {
+    return memoryUsageInBytes.get();
+  }
+
+  public void setMemoryUsageInBytes(final long memoryUsageInBytes) {
+    this.memoryUsageInBytes.set(memoryUsageInBytes);
+  }
+
+  // endregion
 
   @Override
   public String toString() {
