@@ -446,7 +446,7 @@ public class SystemInfo {
             Tag.FROM.toString(),
             "write",
             Tag.MODULE.toString(),
-            "storage");
+            "off-heap");
     MetricService.getInstance()
         .getOrCreateGauge(
             Metric.IOT_MEMORY.toString(),
