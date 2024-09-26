@@ -93,14 +93,14 @@ public class IoTDBDataRegionExtractor extends IoTDBExtractor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IoTDBDataRegionExtractor.class);
 
-  private PipeHistoricalDataRegionExtractor historicalExtractor;
-  private PipeRealtimeDataRegionExtractor realtimeExtractor;
+  protected PipeHistoricalDataRegionExtractor historicalExtractor;
+  protected PipeRealtimeDataRegionExtractor realtimeExtractor;
 
-  private DataRegionWatermarkInjector watermarkInjector;
+  protected DataRegionWatermarkInjector watermarkInjector;
 
-  private boolean hasNoExtractionNeed = true;
-  private boolean shouldExtractInsertion = false;
-  private boolean shouldExtractDeletion = false;
+  protected boolean hasNoExtractionNeed = true;
+  protected boolean shouldExtractInsertion = false;
+  protected boolean shouldExtractDeletion = false;
 
   @Override
   public void validate(final PipeParameterValidator validator) throws Exception {
