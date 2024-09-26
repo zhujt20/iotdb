@@ -38,7 +38,7 @@ public abstract class PipeExtractorConstructor extends PipePluginConstructor {
   }
 
   @Override
-  public final PipeExtractor reflectPlugin(PipeParameters extractorParameters) {
+  public PipeExtractor reflectPlugin(PipeParameters extractorParameters) {
     return (PipeExtractor)
         reflectPluginByKey(
             extractorParameters

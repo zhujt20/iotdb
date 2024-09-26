@@ -60,7 +60,7 @@ public abstract class PipePluginConstructor {
     return pluginConstructors.getOrDefault(pluginKey, () -> reflect(pluginKey)).get();
   }
 
-  private PipePlugin reflect(String pluginName) {
+  protected PipePlugin reflect(String pluginName) {
     if (pluginMetaKeeper == null) {
       throw new PipeException(
           "Failed to reflect PipePlugin instance, because PipePluginMetaKeeper is null.");
