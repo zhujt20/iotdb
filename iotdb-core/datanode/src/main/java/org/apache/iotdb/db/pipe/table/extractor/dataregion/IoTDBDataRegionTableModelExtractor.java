@@ -122,8 +122,10 @@ public class IoTDBDataRegionTableModelExtractor extends IoTDBDataRegionExtractor
       throw new PipeException(
           "The pipe cannot transfer data when data region is using ratis consensus.");
     }
+    // TODO: Support deletion listening
     if (insertionDeletionListeningOptionPair.getRight().equals(true)) {
-      throw new PipeException("Table model extractor does not support deletion listening.");
+      throw new PipeException(
+          "Table model extractor currently does not support deletion listening.");
     }
 
     // TODO: SQL matcher construction and validation
