@@ -583,11 +583,11 @@
                 <configuration>
                     <options>
                         <option>-libraryjars</option>
-                        <option>"D:\Program Files (x86)\Eclipse Adoptium\jdk-17.0.10.7-hotspot\jmods\java.base.jmod"</option>
+                        <option>${java.home}/jmods/java.base.jmod"</option>
                     </options>
                     <obfuscate>true</obfuscate>
                     <injar>${project.build.finalName}.jar</injar>
-                    <outjar>${project.build.finalName}_obfuscated.jar</outjar>
+                    <outjar>${project.build.finalName}.jar</outjar>
                     <proguardInclude>${basedir}/proguard.conf</proguardInclude>
                 </configuration>
             </plugin>
