@@ -73,6 +73,8 @@
             <excludes>
                 <exclude>*ainode.*</exclude>
                 <exclude>**/*ainode.*</exclude>
+                <exclude>*export_cert*</exclude>
+                <exclude>**/*export_cert*</exclude>
             </excludes>
             <fileMode>0755</fileMode>
         </fileSet>

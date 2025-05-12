@@ -99,6 +99,36 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-jar</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <target if="sign.enabled">
+                                <echo message="🔏 Signing jar for ${project.artifactId}..."/>
+                                <exec executable="jarsigner" failonerror="true">
+                                    <arg value="-keystore"/>
+                                    <arg value="${sign.keystore}"/>
+                                    <arg value="-storepass"/>
+                                    <arg value="${sign.storepass}"/>
+                                    <arg value="-signedjar"/>
+                                    <arg value="${project.build.directory}/${project.build.finalName}.signed.jar"/>
+                                    <arg value="${project.build.directory}/${project.build.finalName}.jar"/>
+                                    <arg value="${sign.alias}"/>
+                                </exec>
+                                <move file="${project.build.directory}/${project.build.finalName}.signed.jar" tofile="${project.build.directory}/${project.build.finalName}.jar"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

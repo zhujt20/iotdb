@@ -176,6 +176,10 @@
         <xz.version>1.9</xz.version>
         <zstd-jni.version>1.5.6-3</zstd-jni.version>
         <tsfile.version>2.1.0-250429-SNAPSHOT</tsfile.version>
+        <sign.enabled>false</sign.enabled>
+        <sign.alias>myiotdb</sign.alias>
+        <sign.keystore>${project.basedir}/../../mykeystore.jks</sign.keystore>
+        <sign.storepass>my_storepass</sign.storepass>
     </properties>
     <!--
     if we claim dependencies in dependencyManagement, then we do not claim
@@ -2047,6 +2051,15 @@
             <id>enforce</id>
             <properties>
                 <enforcer.skip>false</enforcer.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>sign</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <sign.enabled>true</sign.enabled>
             </properties>
         </profile>
     </profiles>
